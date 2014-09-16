@@ -53,6 +53,13 @@ public class ConsoleTest {
         console.parseLine();
         verify(buzz).follows("Jim", "Mash");
     }
+
+    @Test public void
+    console_calls_buzz_api_to_display_a_users_wall() throws IOException {
+        when(reader.readLine()).thenReturn("Samir wall");
+        console.parseLine();
+        verify(buzz).getWall("Samir");
+    }
 }
 
 class IsMatchingMessage extends ArgumentMatcher<Message> {

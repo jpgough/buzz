@@ -12,6 +12,7 @@ public class Console {
 
     private final static String PUBLISH = "->";
     private final static String FOLLOWS = "follows";
+    private final static String WALL = "wall";
     private BufferedReader reader;
     private Clock clock;
     private Buzz buzz;
@@ -33,6 +34,9 @@ public class Console {
         } else if(command.contains(FOLLOWS)) {
             String[] users = command.split(FOLLOWS);
             buzz.follows(users[0].trim(), users[1].trim());
+        } else if(command.contains(WALL)) {
+            String[] user = command.split(" ");
+            buzz.getWall(user[0]);
         }
     }
 }

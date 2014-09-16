@@ -46,6 +46,13 @@ public class ConsoleTest {
         console.parseLine();
         verify(buzz).publish(argThat(new IsMatchingMessage(message)));
     }
+
+    @Test public void
+    console_calls_buzz_api_to_follow_a_user() throws IOException {
+        when(reader.readLine()).thenReturn("Jim follows Mash");
+        console.parseLine();
+        verify(buzz).follows("Jim", "Mash");
+    }
 }
 
 class IsMatchingMessage extends ArgumentMatcher<Message> {

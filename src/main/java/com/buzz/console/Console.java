@@ -10,7 +10,8 @@ import java.time.ZonedDateTime;
 
 public class Console {
 
-    private final String PUBLISH = "->";
+    private final static String PUBLISH = "->";
+    private final static String FOLLOWS = "follows";
     private BufferedReader reader;
     private Clock clock;
     private Buzz buzz;
@@ -29,6 +30,9 @@ public class Console {
                     arguments[1].trim(),
                     ZonedDateTime.now(clock));
             buzz.publish(message);
+        } else if(command.contains(FOLLOWS)) {
+            String[] users = command.split(FOLLOWS);
+            buzz.follows(users[0].trim(), users[1].trim());
         }
     }
 }

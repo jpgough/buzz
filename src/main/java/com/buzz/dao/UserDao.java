@@ -1,5 +1,7 @@
 package com.buzz.dao;
 
+import com.buzz.domain.User;
+
 public interface UserDao {
-    boolean userExists(String user);
+    boolean userExists(User user);
 }

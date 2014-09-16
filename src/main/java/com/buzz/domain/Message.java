@@ -4,17 +4,17 @@ package com.buzz.domain;
 import java.time.ZonedDateTime;
 
 public class Message {
-    private String user;
+    private User user;
     private String message;
     private ZonedDateTime time;
 
-    public Message(String user, String message, ZonedDateTime time) {
+    public Message(User user, String message, ZonedDateTime time) {
         this.user = user;
         this.message = message;
         this.time = time;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 

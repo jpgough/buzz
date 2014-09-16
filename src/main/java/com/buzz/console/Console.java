@@ -2,6 +2,7 @@ package com.buzz.console;
 
 import com.buzz.Buzz;
 import com.buzz.domain.Message;
+import com.buzz.domain.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class Console {
         String command = reader.readLine();
         if(command.contains(PUBLISH)) {
             String[] arguments = command.split(PUBLISH);
-            Message message = new Message(arguments[0].trim(),
+            Message message = new Message(new User(arguments[0].trim()),
                     arguments[1].trim(),
                     ZonedDateTime.now(clock));
             buzz.publish(message);

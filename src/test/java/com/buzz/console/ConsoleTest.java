@@ -2,6 +2,7 @@ package com.buzz.console;
 
 import com.buzz.Buzz;
 import com.buzz.domain.Message;
+import com.buzz.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,7 @@ public class ConsoleTest {
 
     @Test public void
     console_calls_buzz_api_with_user_and_message_entered() throws Exception {
-        Message message = new Message("Jim", "Hello World", ZonedDateTime.now(clock));
+        Message message = new Message(new User("Jim"), "Hello World", ZonedDateTime.now(clock));
         when(reader.readLine()).thenReturn("Jim -> Hello World");
         console.parseLine();
         verify(buzz).publish(argThat(new IsMatchingMessage(message)));

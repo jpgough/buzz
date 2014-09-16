@@ -18,9 +18,10 @@ public class Buzz {
     }
 
     public void publish(Message message) {
-        if(userDao.userExists(message.getUser())) {
-            messageDao.store(message);
+        if(! userDao.userExists(message.getUser())) {
+            userDao.addUser(message.getUser());
         }
+        messageDao.store(message);
     }
 
     public void follows(String user, String follows) {

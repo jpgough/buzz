@@ -2,6 +2,7 @@ package com.buzz.console;
 
 import com.buzz.Buzz;
 import com.buzz.domain.Message;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
@@ -29,12 +30,17 @@ public class ConsoleTest {
     @Mock
     private Clock clock;
 
-    @Test public void
-    console_call_buzz_api_with_user_and_message_entered() throws IOException {
-        Console console = new Console(reader, clock, buzz);
+    private Console console;
+
+    @Before public void
+    before() {
+        console = new Console(reader, clock, buzz);
         when(clock.instant()).thenReturn(Instant.now());
         when(clock.getZone()).thenReturn(ZoneId.of("Europe/London"));
+    }
 
+    @Test public void
+    console_calls_buzz_api_with_user_and_message_entered() throws IOException {
         Message message = new Message("Jim", "Hello World", ZonedDateTime.now(clock));
         when(reader.readLine()).thenReturn("Jim -> Hello World");
         console.parseLine();

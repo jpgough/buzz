@@ -1,14 +1,37 @@
 package com.buzz;
 
+import com.buzz.dao.MessageDao;
+import com.buzz.dao.UserDao;
 import com.buzz.domain.Message;
 
+import java.util.List;
 
-public interface Buzz {
-    void publish(Message message);
 
-    void follows(String user, String follows);
+public class Buzz {
 
-    void getWall(String user);
+    private UserDao userDao;
+    private MessageDao messageDao;
 
-    void getTimeline(String user);
+    public Buzz(UserDao userDao, MessageDao messageDao) {
+        this.userDao = userDao;
+        this.messageDao = messageDao;
+    }
+
+    public void publish(Message message) {
+        if(userDao.userExists(message.getUser())) {
+            messageDao.store(message);
+        }
+    }
+
+    public void follows(String user, String follows) {
+
+    }
+
+    public List<String> getWall(String user) {
+        return null;
+    }
+
+    public List<String> getTimeline(String user) {
+        return null;
+    }
 }

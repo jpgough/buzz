@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 
 public class Console {
 
+    private final String PUBLISH = "->";
     private BufferedReader reader;
     private Clock clock;
     private Buzz buzz;
@@ -22,9 +23,10 @@ public class Console {
 
     protected void parseLine() throws IOException {
         String command = reader.readLine();
-        if(command.contains("->")) {
-            String[] arguments = command.split("->");
-            Message message = new Message(arguments[0].trim(), arguments[1].trim(),
+        if(command.contains(PUBLISH)) {
+            String[] arguments = command.split(PUBLISH);
+            Message message = new Message(arguments[0].trim(),
+                    arguments[1].trim(),
                     ZonedDateTime.now(clock));
             buzz.publish(message);
         }

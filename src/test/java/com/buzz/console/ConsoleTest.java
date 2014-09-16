@@ -17,6 +17,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConsoleTest {
@@ -40,7 +41,7 @@ public class ConsoleTest {
     }
 
     @Test public void
-    console_calls_buzz_api_with_user_and_message_entered() throws IOException {
+    console_calls_buzz_api_with_user_and_message_entered() throws Exception {
         Message message = new Message("Jim", "Hello World", ZonedDateTime.now(clock));
         when(reader.readLine()).thenReturn("Jim -> Hello World");
         console.parseLine();
@@ -48,17 +49,30 @@ public class ConsoleTest {
     }
 
     @Test public void
-    console_calls_buzz_api_to_follow_a_user() throws IOException {
+    console_calls_buzz_api_to_follow_a_user() throws Exception {
         when(reader.readLine()).thenReturn("Jim follows Mash");
         console.parseLine();
         verify(buzz).follows("Jim", "Mash");
     }
 
     @Test public void
-    console_calls_buzz_api_to_display_a_users_wall() throws IOException {
+    console_calls_buzz_api_to_display_a_users_wall() throws Exception {
         when(reader.readLine()).thenReturn("Samir wall");
         console.parseLine();
         verify(buzz).getWall("Samir");
+    }
+
+    @Test public void
+    console_calls_buzz_api_to_display_a_users_timeline() throws Exception {
+        when(reader.readLine()).thenReturn("Sandro");
+        console.parseLine();
+        verify(buzz).getTimeline("Sandro");
+    }
+
+    @Test(expected = CommandNotRecognisedException.class) public void
+    unrecognised_command_option_will_throw_invalid_command_exception() throws Exception {
+        when(reader.readLine()).thenReturn("Not Supported Operation");
+        console.parseLine();
     }
 }
 

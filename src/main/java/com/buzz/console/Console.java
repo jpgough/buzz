@@ -23,7 +23,7 @@ public class Console {
         this.buzz = buzz;
     }
 
-    protected void parseLine() throws IOException {
+    protected void parseLine() throws IOException, CommandNotRecognisedException {
         String command = reader.readLine();
         if(command.contains(PUBLISH)) {
             String[] arguments = command.split(PUBLISH);
@@ -37,6 +37,10 @@ public class Console {
         } else if(command.contains(WALL)) {
             String[] user = command.split(" ");
             buzz.getWall(user[0]);
+        } else if(command.split(" ").length == 1) {
+            buzz.getTimeline(command);
+        } else {
+            throw new CommandNotRecognisedException(command);
         }
     }
 }
